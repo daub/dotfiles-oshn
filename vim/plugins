@@ -1,0 +1,115 @@
+if &compatible
+  set nocompatible
+end
+
+call plug#begin('~/.vim/plugged')
+
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-fugitive'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'vim-scripts/dbext.vim'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'ConradIrwin/vim-bracketed-paste'
+  Plug 'terryma/vim-multiple-cursors'
+  " Files
+  Plug 'Shougo/denite.nvim'
+  " Syntax
+  Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+  Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+  Plug 'digitaltoad/vim-pug'
+  Plug 'wavded/vim-stylus'
+  Plug 'posva/vim-vue'
+  Plug 'kylef/apiblueprint.vim'
+  " Themes
+  " Plug 'romainl/Apprentice'
+  " Plug 'chriskempson/base16-vim'
+  " Plug 'w0ng/vim-hybrid'
+  " Plug 'AlessandroYorba/Sierra'
+  " Plug 'jonathanfilip/vim-lucius'
+  Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/limelight.vim'
+  " Misc
+  Plug 'mhinz/vim-startify'
+  Plug 'beloglazov/vim-online-thesaurus'
+
+call plug#end()
+
+" colorscheme base16-tomorrow-night
+colorscheme hybrid
+hi ColorColumn guibg=#1d1f21 guifg=#cc6666 ctermbg=black ctermfg=red
+hi Comment cterm=italic gui=italic
+
+let g:airline_theme='base16_tomorrow'
+let g:airline_section_z = airline#section#create([''])
+let g:airline_section_y = airline#section#create(['%2v'])
+let g:airline#extensions#tabline#enabled = 1
+
+let g:javascript_plugin_flow = 1
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+
+let g:dbext_default_window_width = 50
+let g:dbext_default_DBI_orientation = 'vertical'
+
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+nmap <C-_> <leader>c<Space>
+vmap <C-_> <leader>c<Space>
+
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+
+" Markdown
+let g:markdown_fenced_languages = ['python', 'bash=sh', 'js=javascript', 'lua']
+
+" Distraction free
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  Limelight
+  set conceallevel=1
+  set concealcursor=n
+  " fix
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  Limelight!
+  set conceallevel=0
+  " fix
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" Zoom
+nnoremap <Leader>z :Goyo<CR>
+
+" Misc
+nnoremap <Leader>t :OnlineThesaurusCurrentWord<CR>
+
+" Fuzzy finder
+
+" call denite#custom#var('grep', 'command', ['ack'])
+" call denite#custom#var('grep', 'default_opts',
+"     \ ['--ackrc', $HOME.'/.ackrc', '-H',
+"     \  '--nopager', '--nocolor', '--nogroup', '--column'])
+" call denite#custom#var('grep', 'recursive_opts', [])
+" call denite#custom#var('grep', 'pattern_opt', ['--match'])
+" call denite#custom#var('grep', 'separator', ['--'])
+" call denite#custom#var('grep', 'final_opts', []
+
+call denite#custom#var('file_rec', 'command',
+  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+nnoremap <Leader>n :Denite -auto-resize -highlight-mode-insert=Visual file_rec<cr>
+nnoremap <Leader>b :Denite -auto-resize -highlight-mode-insert=Visual buffer<cr>
+
+syntax enable

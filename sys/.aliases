@@ -1,0 +1,18 @@
+# Navigation
+alias ..='cd ..'
+
+# List
+alias ls='ls -F --color=auto'
+alias lsa='ls -a --color'
+
+# Editor
+alias vim='stty stop "" -ixoff ; vim'
+
+# Copy with progress
+alias cp='rsync -ar --info=progress2'
+
+# LuaRocks
+alias rock='luarocks --tree lua_modules'
+
+# Mpv + youtube-dl
+alias yt='mpv --ytdl-raw-options=extract-audio=,audio-format=mp3,audio-quality=0'

@@ -1,0 +1,98 @@
+let mapleader=" "
+nnoremap <SPACE> <Nop>
+
+nnoremap ; :
+nnoremap : ;
+
+inoremap <c-k> <up>
+inoremap <c-j> <down>
+inoremap <c-h> <left>
+inoremap <c-l> <right>
+
+" Save
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-C>:update<CR>
+
+syntax enable
+
+" Keep the cursor on the same column
+set nostartofline
+
+" Line numbers
+set relativenumber
+set number
+
+set splitbelow
+set splitright
+
+set title
+set showcmd
+set noshowmode
+set laststatus=2
+set ruler
+
+set background=dark
+
+set matchtime=2
+
+" eliminate Esc delay
+set timeoutlen=1000 ttimeoutlen=0
+
+set hidden
+
+set scrolloff=3
+
+set history=500
+set undolevels=500
+
+" set autochdir
+
+set wildmenu
+set wildmode=list:longest,full
+
+set backspace=indent,eol,start
+
+set incsearch
+set hlsearch
+set smartcase
+
+set autoindent
+set complete-=i
+set smarttab
+
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+set list
+set listchars=tab:ᐅ\ ,trail:·,nbsp:·
+
+set textwidth=80
+set colorcolumn=+1
+set formatoptions=cq
+
+" set foldmethod=indent
+" set foldopen=all
+" set foldclose=all
+
+set nobackup
+set noswapfile
+
+set scrolloff=5
+
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+
+nnoremap <Leader>\ :vsp<CR>
+nnoremap <Leader>- :sp<CR>
+
+filetype plugin on
+filetype indent on
